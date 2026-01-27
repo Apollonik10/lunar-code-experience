@@ -1,0 +1,492 @@
+/* =========================
+   ANIMAÇÕES
+========================= */
+@keyframes brilho {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #e5e7eb;
+
+  /* Fundo espaço profundo */
+  background-color: #020617; /* azul quase preto */
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 80% 20%, rgba(255,255,255,0.5), transparent),
+    radial-gradient(1px 1px at 60% 70%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.4), transparent),
+    radial-gradient(1px 1px at 90% 60%, rgba(255,255,255,0.8), transparent);
+
+  background-repeat: repeat;
+  background-size: 220px 220px;
+}
+
+/* Camada extra de estrelas (profundidade) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background-image:
+    radial-gradient(1px 1px at 50% 50%, rgba(255,255,255,0.12), transparent);
+
+  background-size: 320px 320px;
+  animation: brilho 8s ease-in-out infinite;
+}
+
+/* =========================
+   MENU PRINCIPAL
+========================= */
+
+#menu {
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cabeçalho */
+.menu-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.menu-logo {
+  width: 240px;
+  margin-bottom: 20px;
+}
+
+.menu-header h1 {
+  font-size: 2.2rem;
+  margin: 0;
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.menu-header .subtitle {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color:  #9efcff;
+  letter-spacing: 1px;
+}
+
+/* Cards */
+.menu-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 700px;
+}
+
+.menu-card {
+  background: rgba(15, 23, 42, 0.85);
+  border-radius: 18px;
+  padding: 24px 18px;
+  text-align: center;
+  cursor: pointer;
+
+  box-shadow: 0 0 30px rgba(56, 189, 248, 0.12);
+  backdrop-filter: blur(6px);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.25);
+}
+
+.menu-card .icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.menu-card h3 {
+  margin: 10px 0 6px;
+  font-size: 1.1rem;
+}
+
+.menu-card p {
+  font-size: 0.85rem;
+  color: #9efcff;
+}
+
+/* Destaque do assistente */
+.menu-card.destaque {
+  background: linear-gradient(
+    135deg,
+    rgba(56,189,248,0.25),
+    rgba(99,102,241,0.25)
+  );
+}
+
+/* Rodapé */
+.menu-footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.btn-primario {
+  padding: 14px 28px;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #020617;
+  font-weight: 600;
+
+  box-shadow: 0 0 25px rgba(56, 189, 248, 0.35);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primario:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.menu-footer .hint {
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* =========================
+   CONTROLE DE TELAS (ANIMADO)
+========================= */
+.tela {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+.tela-ativa {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* =========================
+   VINHETA
+========================= */
+
+#vinheta {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.vinheta-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#video-vinheta {
+    /* MUDANÇA CRÍTICA: contain ao invés de cover */
+    object-fit: contain;
+    
+    /* Garantir que nunca ultrapasse a tela */
+    max-width: 100%;
+    max-height: 100%;
+    
+    /* Centralizar horizontal e verticalmente */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Fundo preto para bordas */
+    background: #000;
+}
+
+/* Loader - posicionamento absoluto */
+.carregando {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #9efcff;
+    z-index: 101;
+}
+
+.loader {
+    margin: 0 auto 15px;
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(158, 252, 255, 0.3);
+    border-top-color: #9efcff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.carregando p {
+    margin: 0;
+    font-size: 14px;
+    animation: pulse 2s infinite;
+}
+
+/* Media Queries para diferentes telas */
+@media (max-width: 768px) {
+    #vinheta {
+        height: 100vh;
+    }
+    
+    #video-vinheta {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+    #video-vinheta {
+        width: auto;
+        height: 100%;
+    }
+}
+/* =========================
+   MENU / CHAT
+========================= */
+#menu {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card do chatbot */
+.chatbot {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 16px;
+
+  background: rgba(8, 15, 40, 0.85);
+  backdrop-filter: blur(6px);
+
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.15);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Conteúdo do chat */
+#chat {
+  width: 100%;
+  min-height: 200px;
+  padding: 15px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 20px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+#chat p {
+  margin-bottom: 12px;
+  line-height: 1.5;
+  text-align: center;
+  word-break: break-word;
+  color: #e5e7eb;
+}
+
+#chat button {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: linear-gradient(135deg, #38bdf8, #6366f1);
+  color: #020617;
+
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+#chat button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* Acessibilidade */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 400px) {
+  .chatbot {
+    max-width: 95%;
+    padding: 15px;
+  }
+
+  #chat button {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+
+/* Transição suave entre telas */
+#vinheta, #menu {
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Melhorar acessibilidade do foco */
+#chat button:focus {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
+/* Animações suaves */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.chatbot {
+  animation: fadeIn 0.8s ease-out;
+}
+
+/* Estado de loading melhorado */
+.carregando p {
+  margin-top: 10px;
+  font-size: 14px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.btn-voltar {
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+
+  background: linear-gradient(135deg, #6366f1, #38bdf8);
+  color: #020617;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-voltar:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+/* =========================
+   BOTÃO CONTINUAR
+========================= */
+.btn-continuar {
+    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-weight: 600;
+    
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-continuar:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-voltar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    
+    background: linear-gradient(135deg, #6366f1, #38bdf8);
+    color: #020617;
+    font-weight: 600;
+    
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Estilo para mensagens do chat */
+.message {
+    margin-bottom: 12px;
+    line-height: 1.5;
+    word-break: break-word;
+    color: #e5e7eb;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

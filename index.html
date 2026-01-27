@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Lunar Code Experience</title>
+  <link rel="stylesheet" href="./assets/css/chatbot.css">
+  <link rel="icon" href="assets/images/lunar-code-logo.png" type="image/png">
+</head>
+<body>
+ 
+  <!-- Introdução com vídeo -->
+  <section id="vinheta" class="tela-ativa" aria-label="Introdução da Lunar Code">
+    <figure class="vinheta-container">
+      <video id="video-vinheta" autoplay muted playsinline aria-label="Vinheta Lunar Code">
+        <source src="assets/videos/vinheta.mp4" type="video/mp4">
+        <p>Seu navegador não suporta vídeo HTML5. <a href="assets/vinheta.mp4">Baixe a vinheta aqui</a>.</p>
+      </video>
+      <figcaption class="sr-only">Vinheta de introdução da Lunar Code Experience</figcaption>
+    </figure>
+    
+    <aside class="carregando" aria-live="polite">
+      <div class="loader" role="status" aria-label="Carregando"></div>
+      <p>Carregando experiência Lunar Code</p>
+    </aside>
+  </section>
+  
+  <!-- Navegação principal -->
+  <main id="menu" class="tela" aria-label="Menu principal Lunar Code">
+
+    <!-- Logo e título -->
+    <header class="menu-header">
+      <img src="./assets/images/lunar-code-logo1.png" alt="Lunar Code" class="menu-logo">
+      <h1>Lunar Code</h1>
+      <p class="subtitle">Experiência Imersiva</p>
+    </header>
+
+    <!-- Cards de navegação -->
+    <section class="menu-cards">
+
+      <article class="menu-card" data-section="objetivos">
+        <span class="icon">🎯</span>
+        <h3>Objetivos</h3>
+        <p>Onde quero chegar</p>
+      </article>
+
+      <article class="menu-card" data-section="missao">
+        <span class="icon">🚀</span>
+        <h3>Missão</h3>
+        <p>Propósito da Lunar Code</p>
+      </article>
+
+      <article class="menu-card" data-section="tecnologias">
+        <span class="icon">💻</span>
+        <h3>Tecnologias</h3>
+        <p>O que domino atualmente</p>
+      </article>
+
+      <article class="menu-card" data-section="jornada">
+        <span class="icon">📱</span>
+        <h3>Minha Jornada</h3>
+        <p>Do celular ao código</p>
+      </article>
+
+      <article class="menu-card destaque" data-section="assistente">
+        <span class="icon">🤖</span>
+        <h3>Assistente Lunar</h3>
+        <p>Guia personalizado</p>
+      </article>
+
+    </section>
+
+    <!-- Botão principal -->
+    <footer class="menu-footer">
+      <button id="btnTour" class="btn-primario">
+        🌙 Iniciar Tour Guiado
+      </button>
+      <p class="hint">Explore minha jornada passo a passo</p>
+    </footer>
+
+  </main>
+
+  <!-- Seção do Chatbot -->
+  <section id="chatbot-section" class="tela" style="display: none;" aria-label="Assistente Lunar">
+    <div class="chatbot">
+      <div id="chat"></div>
+    </div>
+  </section>
+
+ <script src="./app/js/data.js"></script> <!-- PRIMEIRO: carrega routes globalmente -->
+<script src="./app/js/intro.js"></script>
+<script src="./app/js/ui.js"></script> <!-- SEM type="module" -->
+<script src="./app/js/chatbot.js"></script> 
+
+ </body>
+</html>
